@@ -1,4 +1,4 @@
-// compile: g++ -std=c++11 -o pointers pointers.cpp
+// compile: g++ -std=c++14 -o pointers pointers.cpp
 #include <iostream>
 #include <string>
 
