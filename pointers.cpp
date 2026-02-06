@@ -45,6 +45,13 @@ int promptInt(std::string message, int min, int max)
 double promptDouble(std::string message, double min, double max)
 {
     // Code to prompt user for a double
+    std::string ans;
+    std::cout << message << std::endl;
+    std::cin >> ans;
+    if(ans.toDouble == -1){
+        printf("You typed the wrong thing")
+    }
+
 }
 
 /*
@@ -54,4 +61,5 @@ double promptDouble(std::string message, double min, double max)
 void calculateStudentAverage(void *object, double *avg)
 {
     // Code to calculate and store average grade
+
 }
