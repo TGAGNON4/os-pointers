@@ -21,20 +21,20 @@ int main(int argc, char **argv)
 
     // Sequence of user input -> store in fields of `student`
     // get student's id number
-    int id_num = promptInt("Please enter the student's id number: ", 0, 999999999);
+    int id_num = promptInt("Please enter the student's id number: ", 0, 999999999); // 0 -> any 9 digit number
 
     // get student's first name
     char first_name[128];
     std::cout << "Please enter the student's first name: ";
-    std::cin >> first_name;
+    std::cin >> first_name; // takes in any character array that is less than 128 characters
 
     // get student's last name
     char last_name[128];
     std::cout << "Please enter the student's last name: ";
-    std::cin >> last_name;
+    std::cin >> last_name; // takes in any character array that is less than 128 characters
 
     // get number of assignments
-    int assign_num = promptInt("Please enter how many assignments were graded: ", 1, 134217728);
+    int assign_num = promptInt("Please enter how many assignments were graded: ", 1, 134217728); // 1 -> specified max
     std::cout << std::endl; // new line
 
     // get all assignment grades
@@ -45,13 +45,15 @@ int main(int argc, char **argv)
     }
     grades[i] = -1.0; // end signifier for calculateStudentAverage
 
+    // print out student name and id number info
     std::cout << std::endl << "Student: " << first_name << " " << last_name << " [" << id_num << "]" << std::endl;
+
     // Call `CalculateStudentAverage(???, ???)`
     //calculateStudentAverage();
     // Output `average`
     double avg = 0;
     calculateStudentAverage(&grades[0], &avg);
-    std::cout << "  Average grade: " << avg << std::endl;
+    std::cout << "  Average grade: " << ((int)(avg * 10 + 0.5) / 10.0) << std::endl; // round and keep one decimal place for avg
 
     return 0;
 }
@@ -71,14 +73,13 @@ int promptInt(std::string message, int min, int max)
         // prompt for user input
         std::cout << message;
         std::cin >> ans; // store user input
-        //std::cout << std::endl; // new line
 
         try {
             // converting string input into integer
             size_t size_of_int = 0;
             value = std::stoi(ans, &size_of_int);
 
-            // catches the "6A" input as stod would convert input to 6
+            // catches the "6A" input as stod would convert input to 6 without this catch
             // also checks if the answer is within min and max
             if(size_of_int != ans.length() || (value < min || value > max)){
                 std::cout << "Sorry, I cannot understand your answer" << std::endl;
@@ -87,7 +88,7 @@ int promptInt(std::string message, int min, int max)
                 return value;
             }
         }
-        // any errors in converting to a double will be caught here
+        // any errors in converting to a integer will be caught here
         catch (...){
             std::cout << "Sorry, I cannot understand your answer" << std::endl;
         }
@@ -109,14 +110,13 @@ double promptDouble(std::string message, double min, double max)
         // prompt for user input
         std::cout << message;
         std::cin >> ans; // store user input
-        //std::cout << std::endl; // new line
 
         try {
             // converting string input into double
             size_t size_of_double = 0;
             value = std::stod(ans, &size_of_double);
 
-            // catches the "6A" input as stod would convert input to 6.0
+            // catches the "6A" input as stod would convert input to 6.0 without this catch
             // also checks if the answer is within min and max
             if(size_of_double != ans.length() || (value < min || value > max)){
                 std::cout << "Sorry, I cannot understand your answer" << std::endl;
@@ -147,9 +147,9 @@ void calculateStudentAverage(void *object, double *avg)
             break; // reached the end of the array
         }
         else{
-            *avg = *avg + *((double *)object + i);
+            *avg = *avg + *((double *)object + i); // sum test scores into avg by incrementing pointer by i
         }
         i = i + 1;
     }
-    *avg = *avg / i;
+    *avg = *avg / i; // calculate avg as i = number of assignments
 }
