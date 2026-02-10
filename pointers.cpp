@@ -21,39 +21,39 @@ int main(int argc, char **argv)
 
     // Sequence of user input -> store in fields of `student`
     // get student's id number
-    int id_num = promptInt("Please enter the student's id number: ", 0, 999999999); // 0 -> any 9 digit number
+    student.id = promptInt("Please enter the student's id number: ", 0, 999999999); // 0 -> any 9 digit number
 
     // get student's first name
-    char first_name[128];
+    student.f_name = new char[128];
     std::cout << "Please enter the student's first name: ";
-    std::cin >> first_name; // takes in any character array that is less than 128 characters
+    std::cin >> student.f_name; // takes in any character array that is less than 128 characters
 
     // get student's last name
-    char last_name[128];
+    student.l_name = new char[128];
     std::cout << "Please enter the student's last name: ";
-    std::cin >> last_name; // takes in any character array that is less than 128 characters
+    std::cin >> student.l_name; // takes in any character array that is less than 128 characters
 
     // get number of assignments
-    int assign_num = promptInt("Please enter how many assignments were graded: ", 1, 134217728); // 1 -> specified max
+    student.n_assignments = promptInt("Please enter how many assignments were graded: ", 1, 134217728); // 1 -> specified max
     std::cout << std::endl; // new line
 
     // get all assignment grades
-    double grades[assign_num + 1];
     int i = 0;
-    for(i = 0; i < assign_num; i++){
-        grades[i] = promptDouble("Please enter grade for assignment " + std::to_string(i) + ": ", 0.0, 100.0);
+    student.grades = new double[student.n_assignments + 1];
+    for(i = 0; i < student.n_assignments; i++){
+        student.grades[i] = promptDouble("Please enter grade for assignment " + std::to_string(i) + ": ", 0.0, 100.0);
     }
-    grades[i] = -1.0; // end signifier for calculateStudentAverage
+    student.grades[i] = -1.0; // end signifier for calculateStudentAverage
 
     // print out student name and id number info
-    std::cout << std::endl << "Student: " << first_name << " " << last_name << " [" << id_num << "]" << std::endl;
+    std::cout << std::endl << "Student: " << student.f_name << " " << student.l_name << " [" << student.id << "]" << std::endl;
 
     // Call `CalculateStudentAverage(???, ???)`
     //calculateStudentAverage();
     // Output `average`
-    double avg = 0;
-    calculateStudentAverage(&grades[0], &avg);
-    std::cout << "  Average grade: " << ((int)(avg * 10 + 0.5) / 10.0) << std::endl; // round and keep one decimal place for avg
+    average = 0;
+    calculateStudentAverage(student.grades, &average);
+    std::cout << "  Average grade: " << ((int)(average * 10 + 0.5) / 10.0) << std::endl; // round and keep one decimal place for avg
 
     return 0;
 }
