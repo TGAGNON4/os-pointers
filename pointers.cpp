@@ -55,6 +55,10 @@ int main(int argc, char **argv)
     calculateStudentAverage(student.grades, &average);
     std::cout << "  Average grade: " << ((int)(average * 10 + 0.5) / 10.0) << std::endl; // round and keep one decimal place for avg
 
+    delete[] student.f_name;
+    delete[] student.l_name;
+    delete[] student.grades;
+
     return 0;
 }
 
